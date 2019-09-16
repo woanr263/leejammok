@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자세히 보기</title>
+<title>자세히 이재묵 브런치</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -22,7 +22,7 @@
 	            <input type="hidden" name="perPage" value="${to.perPage}">
 			</form>
 			<div class="form-group">
-				<label for="bno">글번호</label>
+				<label for="bno">게시판번호</label>
 				<input class="form-control" id="bno" value="${vo.bno}" readonly="readonly">
 			</div>
 			<div class="form-group">
