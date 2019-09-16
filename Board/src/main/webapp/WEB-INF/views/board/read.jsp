@@ -22,7 +22,7 @@
 	            <input type="hidden" name="perPage" value="${to.perPage}">
 			</form>
 			<div class="form-group">
-				<label for="bno">글번호</label>
+				<label for="bno">게시판번호</label>
 				<input class="form-control" id="bno" value="${vo.bno}" readonly="readonly">
 			</div>
 			<div class="form-group">
