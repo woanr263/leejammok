@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자세히 이재묵 브런치</title>
+<title>자세히 보기</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -63,6 +63,19 @@
 				<div class="form-group">
 					<button id="replyInsertBtn" class="btn btn-default">댓글 등록</button>
 					<button id="replyRestBtn" class="btn btn-default">초기화</button>
+				</div>
+			</div>
+		</div><!-- 댓글 입력창 row클래스 div end tag -->
+		<div id="replies" class="row"> <!-- 댓글 목록 -->
+			<hr>
+			<div class="panel panel-info">
+				<div class="panel-heading">
+					<span>rno : 44, 작성자 : <span class="glyphicon glyphicon-user"></span>홍길동</span>
+					<span class="pull-right"><span class="glyphicon glyphicon-time"></span>2019-09-17 09:22</span>
+				</div>
+				<div class="panel-body">
+					<p>여기는 댓글 본문입니다.</p>
+					<button class="btn"><span class="glyphicon glyphicon-edit"></span>수정/삭제<span class="glyphicon glyphicon-trash"></span></button>
 				</div>
 			</div>
 		</div>
@@ -122,6 +135,11 @@
 			$form.submit();
 		});
 	});
+	function getAllList(bno){
+		$.getJSON("/replies/"+bno, function(result){
+			console.log(result);
+		});
+	}
 </script>
 </body>
 </html>

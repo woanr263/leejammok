@@ -9,4 +9,8 @@
 			select seq_reply.currval from dual
 		</selectKey>
 	</insert>
+	
+	<select id="list" resultType="kr.co.domain.ReplyVO">
+		select * from tbl_reply where bno = #{bno}
+	</select>
 </mapper>

@@ -1,5 +1,7 @@
 package kr.co.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -18,6 +20,11 @@ public class ReplyDAOImpl implements ReplyDAO {
 	@Override
 	public void insert(ReplyVO vo) {
 		session.insert(NS+".insert", vo);
+	}
+
+	@Override
+	public List<ReplyVO> list(int bno) {
+		return session.selectList(NS+".list", bno);
 	}
 
 }
