@@ -127,6 +127,7 @@
 					'Content-Type' : 'application/json',
 					'X-HTTP-Method-Override' : 'DELETE'
 				},
+				dataType : 'text';
 				success : function(result){
 					alert(result);
 					getAllList(bno);
