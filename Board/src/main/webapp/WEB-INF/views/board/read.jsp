@@ -82,7 +82,8 @@
 					<div class="modal-footer">
 						<button id="modal_update" class="btn" data-dismiss="modal">수정</button>
 						<button id="modal_delete" class="btn" data-dismiss="modal">삭제</button>
-						<button id="modal_close" class="btn" data-dismiss="modal">닫기</button>					</div>
+						<button id="modal_close" class="btn" data-dismiss="modal">닫기</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -127,7 +128,7 @@
 					'Content-Type' : 'application/json',
 					'X-HTTP-Method-Override' : 'DELETE'
 				},
-				dataType : 'text';
+				dataType : 'text',
 				success : function(result){
 					alert(result);
 					getAllList(bno);
