@@ -8,4 +8,8 @@ public interface ReplyDAO {
 	void insert(ReplyVO vo);
 
 	List<ReplyVO> list(int bno);
+
+	void update(ReplyVO vo);
+
+	void delete(int rno);
 }

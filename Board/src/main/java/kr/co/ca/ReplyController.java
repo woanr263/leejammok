@@ -48,4 +48,33 @@ public class ReplyController {
 		}
 		return entity;
 	}
+	
+	@RequestMapping(value = "/{rno}", method = RequestMethod.PUT)
+	public ResponseEntity<String> update(@PathVariable int rno, @RequestBody ReplyVO vo){
+		ResponseEntity<String> entity = null;
+		vo.setRno(rno);
+		
+		try {
+			rService.update(vo);
+			entity = new ResponseEntity<String>("UPDATE_SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+	
+	@RequestMapping(value = "/{rno}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> delete(@PathVariable int rno){
+		ResponseEntity<String> entity = null;
+		try {
+			rService.delete(rno);
+			entity = new ResponseEntity<String>("DELETE_SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

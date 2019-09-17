@@ -27,4 +27,13 @@ public class ReplyServiceImpl implements ReplyService {
 		return dao.list(bno);
 	}
 
+	@Override
+	public void update(ReplyVO vo) {
+		dao.update(vo);
+	}
+
+	@Override
+	public void delete(int rno) {
+		dao.delete(rno);
+	}
 }
