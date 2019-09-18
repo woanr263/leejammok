@@ -67,7 +67,10 @@
 			</div>
 		</div><!-- 댓글 입력창 row클래스 div end tag -->
 		<div id="replies" class="row"> <!-- 댓글 목록 -->
-			
+		</div>
+		<div class="row">
+			<ul class="pagination">
+			</ul>
 		</div>
 		<div class="row"><!-- modal 효과 -->
 			<div data-backdrop="static" class="modal fade" id="myModal">
@@ -90,7 +93,15 @@
 	</div><!-- container  -->
 <script type="text/javascript">
 	var bno = ${vo.bno};
+	var replyPage = 1;
+	
 	$(document).ready(function(){
+		$(".pagination").on("click", "li a", function(event){
+			event.preventDefault();
+			replyPage = $(this).attr("href");
+			alert(replyPage);
+			getAllList(bno, replyPage);
+		});
 		$("#replies").on("click", ".callModal", function(){
 			var rno = $(this).prev("p").attr("data-rno");
 			var replytext = $(this).prev("p").text();
@@ -114,7 +125,7 @@
 				dataType : 'text',
 				success : function(result){
 					alert(result);
-					getAllList(bno);
+					getAllList(bno, replyPage);
 				}
 			});
 		});
@@ -131,7 +142,7 @@
 				dataType : 'text',
 				success : function(result){
 					alert(result);
-					getAllList(bno);
+					getAllList(bno, replyPage);
 				}
 				
 			});
@@ -164,7 +175,7 @@
 					if(result == 'INSERT_SUCCESS'){
 						$("#replyer").val("");
 						$("#replytext").val("");
-						getAllList(bno);
+						getAllList(bno, replyPage);
 					}
 				}
 			});
@@ -188,11 +199,13 @@
 			$form.attr("method", "get");
 			$form.submit();
 		});
-		getAllList(bno);
+		getAllList(bno, replyPage);
 	});
-	function getAllList(bno){
-		$.getJSON("/replies/"+bno, function(arr){
+	function getAllList(bno, replyPage){
+		$.getJSON("/replies/"+bno+"/"+replyPage, function(result){
 			var str = '<hr>';
+			var arr = result.list;
+			console.log(result);
 			for(var i = 0; i<arr.length;i++){
 				str+='<div class="panel panel-info">'+
 				'<div class="panel-heading">'+
@@ -206,7 +219,22 @@
 		'</div>';
 			}
 			$("#replies").html(str);
+			printPaging(result);
 		});
+	}
+	function printPaging(to){ /* 댓글 페이지 번호 */
+		var str = '';
+		if(to.curPage>1){
+			str+="<li><a href='"+(to.curPage-1)+"'>&laquo;</a></li>";
+		}
+		for(var i=to.bpn; i<to.spn+1; i++){
+			var strClass = to.curPage == i ? 'active' : '';
+			str+="<li class='"+strClass+"'><a href='"+i+"'>"+i+"</a></li>";
+		}
+		if(to.curPage<to.totalPage){
+			str+="<li><a href='"+(to.curPage+1)+"'>&raquo;</a></li>";
+		}
+		$(".pagination").html(str);
 	}
 </script>
 </body>

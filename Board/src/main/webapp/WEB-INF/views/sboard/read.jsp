@@ -65,15 +65,78 @@
 						<button id="replyInsertBtn" class="btn btn-default">댓글 등록</button>
 						<button id="replyRestBtn" class="btn btn-default">초기화</button>
 					</div>
-				</div>				
+				</div>
 			</div>
 			<div id="replies" class="row">
+			</div>
+			<div class="row">
+				<div data-backdrop="static" class="modal fade" id="myModal">
+					<div class="modal-dialog">
+						<div class="modal-header">
+							<button data-dismiss="modal" class="close">&times;</button>
+							<p id="model_rno"></p>
+						</div>
+						<div class="modal-body">
+							<input id="model_replytext" class="form-control">
+						</div>
+						<div class="modal-footer">
+							<button id="modal_update" class="btn" data-dismiss="modal">수정</button>
+							<button id="modal_delete" class="btn" data-dismiss="modal">삭제</button>
+							<button id="modal_close" class="btn" data-dismiss="modal">닫기</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 <script type="text/javascript">
 	var bno = ${vo.bno};
 	$(document).ready(function(){
+		$("#replies").on("click", ".callModal", function(){
+			var rno = $(this).prev("p").attr("data-rno");
+			var replytext = $(this).prev("p").text();
+			$("#model_rno").text(rno);
+			$("#model_replytext").val(replytext);
+			$("#myModal").modal("show");
+		});
+		$("#modal_update").click(function(){
+			var rno = $("#model_rno").text();
+			var replytext = $("#model_replytext").val();
+			$.ajax({
+				type : 'put',
+				url : '/replies/'+rno,
+				headers : {
+					'Content-Type' : 'application/json',
+					'X-HTTP-Method-Override' : 'PUT'
+				},
+				data : JSON.stringify({
+					replytext : replytext
+				}),
+				dataType : 'text',
+				success : function(result){
+					alert(result);
+					getAllList(bno);
+				}
+			});
+		});
+		
+		$("#modal_delete").click(function(){
+			var rno = $("#model_rno").text();
+			$.ajax({
+				type : 'delete',
+				url : '/replies/'+rno,
+				headers : {
+					'Content-Type' : 'application/json',
+					'X-HTTP-Method-Override' : 'DELETE'
+				},
+				dataType : 'text',
+				success : function(result){
+					alert(result);
+					getAllList(bno);
+				}
+				
+			});
+		});
 		$("#reply_form").click(function(){
 			$("#myCollapsible").collapse("toggle");
 		});
