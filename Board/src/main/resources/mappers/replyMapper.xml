@@ -9,4 +9,20 @@
 			select seq_reply.currval from dual
 		</selectKey>
 	</insert>
+	
+	<select id="list" resultType="kr.co.domain.ReplyVO">
+		select * from tbl_reply where bno = #{bno} order by rno desc
+	</select>
+	
+	<update id="update">
+		update tbl_reply set replytext = #{replytext} where rno = #{rno}
+	</update>
+	
+	<delete id="delete">
+		delete from tbl_reply where rno = #{rno}
+	</delete>
+	
+	<select id="getAmount" resultType="Integer">
+		select count(*) from tbl_reply where bno = #{bno}
+	</select>
 </mapper>
